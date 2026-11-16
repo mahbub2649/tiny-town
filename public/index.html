@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tiny Town — God Mode</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏘️</text></svg>" />
+</head>
+<body>
+  <div id="app">
+    <header id="topbar">
+      <div class="brand">🏘️ Tiny Town <span class="tag">GOD MODE</span></div>
+      <div id="clock" class="pill">Day 1 · 07:00</div>
+      <div class="group" id="speedBtns">
+        <button data-speed="0" title="Pause (Space)">⏸</button>
+        <button data-speed="1" class="on" title="1x">▶</button>
+        <button data-speed="2" title="2x">⏩</button>
+        <button data-speed="4" title="4x">⏩⏩</button>
+        <button data-speed="10" title="10x">⏭</button>
+      </div>
+      <label class="group" title="Model for ALL agents (resets personal choices, except pinned agents)">🧠 <select id="defaultTier" style="max-width:190px"></select></label>
+      <button id="btnModels" title="Global model settings: reset all, premium mix for everyone, pinned agents">⚙️</button>
+      <div id="aiStatus" class="pill"></div>
+      <label class="group" title="Weather">🌦️ <select id="weatherSel"><option value="sunny">☀️ Sunny</option><option value="cloudy">☁️ Cloudy</option><option value="rain">🌧️ Rain</option><option value="storm">⛈️ Storm</option><option value="snow">❄️ Snow</option></select></label>
+      <button id="btnDirector" title="AI Director spawns surprise events every few hours">🎲 on</button>
+      <div class="spacer"></div>
+      <div class="group">
+        <button id="btnSave" title="Save game (server slots + browser)">💾</button>
+        <button id="btnLoad" title="Load a saved game">📂</button>
+        <button id="btnExport" title="Export JSON">⬇️</button>
+        <button id="btnImport" title="Import JSON">⬆️</button>
+        <button id="btnReset" title="New town">♻️</button>
+      </div>
+    </header>
+
+    <nav id="tools">
+      <button data-tool="select" class="on" title="Select / pan (1)"><span>👆</span>Select</button>
+      <button data-tool="agent" title="Create agent (2)"><span>🧑</span>Agent</button>
+      <button data-tool="item" title="Place item (3)"><span>🎁</span>Item</button>
+      <button data-tool="build" title="Build a place — drag a rectangle (4)"><span>🏗️</span>Build</button>
+      <button data-tool="paint" title="Paint terrain (5)"><span>🖌️</span>Paint</button>
+      <button data-tool="furniture" title="Place furniture (6)"><span>🪑</span>Furnish</button>
+      <button data-tool="erase" title="Erase (7)"><span>🧽</span>Erase</button>
+      <hr />
+      <button id="btnEvent" title="Broadcast a world event"><span>📣</span>Event</button>
+      <button id="btnGoalAll" title="Give everyone a goal"><span>🎯</span>Goal all</button>
+      <button id="btnLore" title="Edit world facts"><span>📜</span>Lore</button>
+    </nav>
+
+    <main id="stage">
+      <canvas id="game"></canvas>
+      <div id="ticker"><b>📰 LIVE</b><span id="tickerText">Loading real-world news…</span></div>
+      <div id="palette" class="hidden"></div>
+      <div id="hint"></div>
+      <div id="banner" class="hidden"></div>
+    </main>
+
+    <aside id="side">
+      <div class="tabs">
+        <button data-tab="inspect" class="on" title="Inspector">🔍</button>
+        <button data-tab="agents" title="Agents">👥</button>
+        <button data-tab="town" title="Town government, laws, evolution">🏛️</button>
+        <button data-tab="library" title="Library: books, papers, research">📚</button>
+        <button data-tab="prayers" title="Prayers to God">🙏<span id="prayBadge" class="badge prem hidden">0</span></button>
+        <button data-tab="economy" title="Economy: exchange prices, trades, wealth">📈</button>
+        <button data-tab="work" title="Commissions: real tasks you pay agents for">📝<span id="workBadge" class="badge prem hidden">0</span></button>
+        <button data-tab="matrix" title="Relationship matrix">🕸️</button>
+        <button data-tab="log" title="Event log">📜</button>
+      </div>
+      <section id="tab-inspect" class="tab"></section>
+      <section id="tab-agents" class="tab hidden"></section>
+      <section id="tab-town" class="tab hidden"></section>
+      <section id="tab-library" class="tab hidden"></section>
+      <section id="tab-prayers" class="tab hidden"></section>
+      <section id="tab-matrix" class="tab hidden"></section>
+      <section id="tab-economy" class="tab hidden"></section>
+      <section id="tab-work" class="tab hidden"></section>
+      <section id="tab-log" class="tab hidden">
+        <div class="logfilters">
+          <label><input type="checkbox" data-f="line" checked /> 💬 talk</label>
+          <label><input type="checkbox" data-f="action" checked /> 🚶 actions</label>
+          <label><input type="checkbox" data-f="thought" /> 💭 thoughts</label>
+          <label><input type="checkbox" data-f="discover" checked /> 🔎 finds/items</label>
+          <label><input type="checkbox" data-f="money" checked /> 💵 money</label>
+          <label><input type="checkbox" data-f="craft" checked /> ✨ create/destroy</label>
+          <label><input type="checkbox" data-f="romance" checked /> 💕 romance</label>
+          <label><input type="checkbox" data-f="need" checked /> ❗ needs</label>
+          <label><input type="checkbox" data-f="news" checked /> 📰 news/TV</label>
+          <label><input type="checkbox" data-f="law" checked /> ⚖️ law/crime</label>
+          <label><input type="checkbox" data-f="knowledge" checked /> 📖 knowledge</label>
+          <label><input type="checkbox" data-f="life" checked /> 🧬 life/death</label>
+          <label><input type="checkbox" data-f="prayer" checked /> 🙏 prayers</label>
+          <label><input type="checkbox" data-f="god" checked /> 🌍 world/god</label>
+          <button id="btnExportLog" type="button" title="Download full log">⬇️ log</button>
+        </div>
+        <input id="logSearch" placeholder="Search log… (name, item, word)" style="margin-bottom:6px" />
+        <div id="logList"></div>
+      </section>
+    </aside>
+  </div>
+
+  <div id="modal" class="hidden"><form id="modalCard" autocomplete="off"></form></div>
+  <div id="toasts"></div>
+  <input type="file" id="fileInput" accept="application/json" hidden />
+  <script type="module" src="js/main.js?v=6"></script>
+</body>
+</html>

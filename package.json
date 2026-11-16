@@ -1,0 +1,9 @@
+{
+  "name": "tiny-town-god-mode",
+  "version": "1.0.0",
+  "description": "2D AI agent town sandbox with god mode, powered by OpenRouter",
+  "type": "module",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" }
+}

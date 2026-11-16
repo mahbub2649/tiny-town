@@ -1,0 +1,4 @@
+{
+  "_comment": "Agents pinned to a specific model. Applied every time the game loads; global model changes skip pinned agents. Use a tier id from the model menu (local models are 'ollama:<name>').",
+  "S Luster": "ollama:huihui_ai/llama3.2-abliterate:3b"
+}
