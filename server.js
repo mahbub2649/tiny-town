@@ -1,4 +1,4 @@
-// Tiny Town – God Mode server
+// Tiny Town server
 // Serves the static game, proxies LLM calls to OpenRouter (key stays server-side), scrapes news &
 // AI research hourly, offers web search / book lookups for agents, persists logs and save slots.
 import http from 'node:http';
@@ -277,7 +277,7 @@ async function callModel(model, messages, max_tokens, temperature, timeoutMs = 4
   const r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
     signal: AbortSignal.timeout(timeoutMs),
-    headers: { Authorization: `Bearer ${API_KEY}`, 'Content-Type': 'application/json', 'HTTP-Referer': 'https://tiny-town.local', 'X-Title': 'Tiny Town God Mode' },
+    headers: { Authorization: `Bearer ${API_KEY}`, 'Content-Type': 'application/json', 'HTTP-Referer': 'https://tiny-town.local', 'X-Title': 'Tiny Town' },
     body: JSON.stringify(payload),
   });
   const data = await r.json().catch(() => ({}));

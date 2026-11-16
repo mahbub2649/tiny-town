@@ -1,5 +1,5 @@
 {
-  "name": "tiny-town-god-mode",
+  "name": "tiny-town",
   "version": "1.0.0",
   "description": "2D AI agent town sandbox with god mode, powered by OpenRouter",
   "type": "module",

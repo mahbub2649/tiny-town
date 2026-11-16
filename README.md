@@ -5,7 +5,7 @@
 
 <h1 align="center">
   <img src="assets/logo.png" width="48" height="48">
-  &nbsp;Tiny Town — God Mode
+  &nbsp;Tiny Town
 </h1>
 
 <p align="center">
@@ -168,8 +168,8 @@ Tiny Town is a browser sandbox where a few dozen small AI agents plan their days
 **Option 1: the launcher (recommended)**
 
 ```bash
-git clone https://github.com/mahbub2649/tiny-town-god-mode.git
-cd tiny-town-god-mode
+git clone https://github.com/mahbub2649/tiny-town.git
+cd tiny-town
 cp .env.example .env        # then add your OpenRouter key
 ./run.sh                    # starts the server and opens the browser
 ```
@@ -301,7 +301,7 @@ Local-only runs at about 8 s per decision for 18 agents on a small GPU. On a big
 ## Project layout
 
 ```text
-tiny-town-god-mode/
+tiny-town/
 ├── server.js              # static server, LLM proxy, news, search, saves, logs
 ├── run.sh                 # launcher: checks Node, starts server, opens browser
 ├── package.json
