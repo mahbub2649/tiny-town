@@ -25,7 +25,8 @@
 </p>
 
 <p align="center">
-  <img src="assets/gif-town.gif" alt="Tiny Town running at 10x speed" width="100%">
+  <img src="assets/gif-town.gif" alt="Residents chatting at the spring fair in the Town Square" width="100%">
+  <br><sub>Unscripted: every line is generated live by each resident's own model, from their needs, memories and grudges.</sub>
 </p>
 
 <!-- DIVIDER -->
